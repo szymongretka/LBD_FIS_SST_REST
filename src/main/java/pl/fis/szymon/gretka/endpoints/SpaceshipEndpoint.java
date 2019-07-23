@@ -3,17 +3,23 @@ package pl.fis.szymon.gretka.endpoints;
 import java.util.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
 
 import pl.fis.szymon.gretka.entities.Spaceship;
+import pl.fis.szymon.gretka.exceptions.ExceptionClass;
+import pl.fis.szymon.gretka.exceptions.ResourceNotFound;
 import pl.fis.szymon.gretka.exceptions.ResourceNotFoundException;
+import pl.fis.szymon.gretka.exceptions.ResourceNotFoundHandler;
 import pl.fis.szymon.gretka.entities.DataLoader;
 import pl.fis.szymon.gretka.entities.SpaceFleet;
 
@@ -72,8 +78,29 @@ public class SpaceshipEndpoint {
 	@GET
 	@Path("v4/space-fleet/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Spaceship getSpaceshipByNameV4(@PathParam(value = "name") String name) throws ResourceNotFoundException{
-		return Dt.getByName(name);
+	public Spaceship getSpaceshipByNameV4(@PathParam(value = "name") String name) {
+		
+		Spaceship ship = Dt.getByName(name);
+		
+		if(ship == null) {
+			throw new ResourceNotFound("resource " + name + " has not been found!");
+		}
+		
+		return ship;
+	}
+	
+	@GET
+	@Path("v4/space-fleet")
+	@Produces(MediaType.APPLICATION_JSON)
+	public SpaceFleet getSpaceFleetV4() {
+		return Dt.getSpaceFleet();
+	}
+	
+	@POST
+	@Path("v4/space-fleet")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void createSpaceshipInSpaceFleetV4(@Valid Spaceship spaceship) {
+	    Dt.save(spaceship);
 	}
 	
 	

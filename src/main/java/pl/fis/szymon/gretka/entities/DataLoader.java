@@ -1,5 +1,8 @@
 package pl.fis.szymon.gretka.entities;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,12 +22,13 @@ public class DataLoader {
 	
 	@PostConstruct
 	public void initializeSpaceships() {
-		listOfSpaceships.add(new Spaceship("venga", 2000));
-		listOfSpaceships.add(new Spaceship("goliath", 8000));
+		listOfSpaceships.add(new Spaceship("venga", 2000, LocalTime.now()));
+		listOfSpaceships.add(new Spaceship("goliath", 8000, LocalTime.now()));
 		
 		spaceFleet.setName("FIS Space Fleet");
 		spaceFleet.setList(listOfSpaceships);
 	}
+	
 	
 	
 	public List<Spaceship> getListOfSpaceships() {

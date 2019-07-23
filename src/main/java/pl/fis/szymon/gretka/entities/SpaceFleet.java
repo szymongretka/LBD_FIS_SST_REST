@@ -10,8 +10,8 @@ public class SpaceFleet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-
 	private List<Spaceship> ships;
+	
 	
 	public SpaceFleet() {}
 	
