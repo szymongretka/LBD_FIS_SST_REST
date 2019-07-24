@@ -21,10 +21,17 @@
         </dependency>
         
        <dependency>
-        <groupId>org.jboss.resteasy</groupId>
-        <artifactId>resteasy-jaxb-provider</artifactId>
-        <version>3.0.16.Final</version>
-	</dependency>
+       		<groupId>org.jboss.resteasy</groupId>
+        	<artifactId>resteasy-jaxb-provider</artifactId>
+        	<version>3.0.16.Final</version>
+		</dependency>
+        
+        
+		<dependency>
+			<groupId>com.github.phillip-kruger</groupId>
+    		<artifactId>apiee-core</artifactId>
+    		<version>1.0.1</version>
+		</dependency>
         
         
         

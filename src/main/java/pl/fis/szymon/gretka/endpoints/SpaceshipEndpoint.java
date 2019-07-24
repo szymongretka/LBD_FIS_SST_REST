@@ -15,15 +15,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import pl.fis.szymon.gretka.entities.Spaceship;
 import pl.fis.szymon.gretka.exceptions.ExceptionClass;
 import pl.fis.szymon.gretka.exceptions.ResourceNotFound;
-import pl.fis.szymon.gretka.exceptions.ResourceNotFoundException;
 import pl.fis.szymon.gretka.exceptions.ResourceNotFoundHandler;
 import pl.fis.szymon.gretka.entities.DataLoader;
 import pl.fis.szymon.gretka.entities.SpaceFleet;
 
 @Path("/")
+@Api(value = "SpaceshipEndpoint", description = "Swagger Demo")
 public class SpaceshipEndpoint {
 	
 	@Inject
@@ -78,6 +82,10 @@ public class SpaceshipEndpoint {
 	@GET
 	@Path("v4/space-fleet/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(httpMethod = "GET", value = "Returns param", response = Spaceship.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful retrieval of param value", response = Spaceship.class),
+            @ApiResponse(code = 404, message = "Resource not found", response = ResourceNotFound.class)})
 	public Spaceship getSpaceshipByNameV4(@PathParam(value = "name") String name) {
 		
 		Spaceship ship = Dt.getByName(name);
@@ -89,9 +97,13 @@ public class SpaceshipEndpoint {
 		return ship;
 	}
 	
+	
 	@GET
 	@Path("v4/space-fleet")
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(httpMethod = "GET", value = "Returns param", response = SpaceFleet.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful retrieval of param value", response = SpaceFleet.class)})
 	public SpaceFleet getSpaceFleetV4() {
 		return Dt.getSpaceFleet();
 	}
